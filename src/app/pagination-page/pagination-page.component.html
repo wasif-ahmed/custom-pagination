@@ -1,0 +1,41 @@
+
+<div class="text-center">
+  <span class="text-center">Bhogol:</span>
+  <input type="text" class="form-control butn-style" placeholder="Search Here" [(ngModel)]="query" id="listSearch">
+</div>
+<div class="abc">
+  Data Table
+</div>
+<div>
+  <table>
+    <tr>
+      <th>id</th>
+      <th>title</th>
+      <th>body</th>
+    </tr>
+    <tr *ngFor="let data of pagination.data | LockFilter: query">
+      <div *ngIf="data === 'null'; else gotData">
+        NO DATA
+      </div>
+      <ng-template #gotData>
+        <th>{{data.id}}</th>
+        <th>{{data.title}}</th>
+        <th>{{data.body}}</th>
+      </ng-template>
+    </tr>
+    <ng-template #noData>
+      Kuch nahi hai display karne ko
+    </ng-template>
+  </table>
+</div>
+<div class="buttons-class">
+  <button [disabled]="pagination.currentPage === 0" (click)="paginationPrev()">Previous</button>
+  <ul>
+    <li *ngFor="let p of getPaginationPages();let i = index" [class.abc]="i === ( pagination.currentPage  )" (click)="changePagination(i)">
+      {{ i + 1 }}
+    </li>
+  </ul>
+  <div>
+    <button [disabled]="pagination.currentPage === 9" (click)="paginationNext()">Next</button>
+  </div>
+</div>
